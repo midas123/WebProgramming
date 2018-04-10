@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<%@ page import="apr06.LogonDBBean" %>
+<%@ page import="logon.LogonDBBean" %>
 
 <% request.setCharacterEncoding("euc-kr"); %>
     

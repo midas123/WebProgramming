@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<%@ page import="apr06.*" %>
+<%@ page import="logon.*" %>
 <%@ include file="./color.jsp"%>
 
 <html>
