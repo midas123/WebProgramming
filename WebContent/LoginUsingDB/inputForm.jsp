@@ -36,7 +36,7 @@
 			return false;
 			}
 	}
-	
+	 // 아이디 중복 여부를 판단
 	function openConfirmid(userinput) {
 		if(userinput.id.value == ""){
 			alert("아이디를 입력하세요");
@@ -47,7 +47,11 @@
 	//새로운 윈도우를 엽니다.
 	open(url, "confirm", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
 	}
-
+	
+	function zipCheck(){
+		url="Zipcheck.jsp?check=";
+		window.open(url,"post","toolbar=no, width=500, height=300, directories=no, status=yes, scrollbars=yes, menubar=no");
+	} 
 </script>
 </head>
 
@@ -111,6 +115,17 @@
 				<input type="text" name="blog" size="60" maxlength="50">
 			</td>
 		</tr>
+		<tr>
+			<td width="200">우편번호</td>
+			<td><input type="text" name="zipcode" size="7">
+				<input type="button" value="우편번호찾기" onclick="zipCheck()">
+				우편번호를 검색하세요.</td>
+		</tr>
+		<tr>
+			<td>주소</td>
+			<td><input type="text" name="address" size="70">
+			주소를 적어 주세요.</td>	
+		</tr>				
 		<tr>
 			<td colspan="2" align="center" bgcolor="<%=value_c %>">
 				<input type="submit" name="confirm" value="등 록">

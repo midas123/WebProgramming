@@ -12,6 +12,9 @@ public class LogonDataBean {
 	private String email;
 	private String blog;
 	private Timestamp reg_date;
+	private String zipcode;
+	private String address;
+	
 	public String getId() {
 		return id;
 	}
@@ -59,6 +62,18 @@ public class LogonDataBean {
 	}
 	public void setReg_date(Timestamp reg_date) {
 		this.reg_date = reg_date;
+	}
+	public String getZipcode() {
+		return zipcode;
+	}
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 	

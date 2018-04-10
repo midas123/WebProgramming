@@ -24,9 +24,11 @@
 		 alert("사용자 이름을 입력하세요");
 		 return false;
 	 }
- 
-
  }
+ function zipCheck(){
+		url="Zipcheck.jsp?check=";
+		window.open(url,"post","toolbar=no, width=500, height=300, directories=no, status=yes, scrollbars=yes, menubar=no");
+	} 
 -->
 </script>
 </head>
@@ -101,11 +103,34 @@
 				</td>
 			</tr>
 			<tr>
+			<td width="200">우편번호</td>
+			<td width="400">
+			<%if(c.getZipcode() == null){ %>
+			<input type="text" name="zipcode" size="7">
+			<%} else { %>
+			<input type="text" name="zipcode" size="7" value="<%=c.getZipcode() %>">
+			<%} %>
+				<input type="button" value="우편번호찾기" onclick="zipCheck()">
+				우편번호를 검색하세요.</td>
+			</tr>
+			<tr>
+			<td>주소</td>
+			<td>
+			<%if(c.getAddress() ==null) { %>
+			<input type="text" name="address" size="70">
+			<% } else { %>
+			<input type="text" name="address" size="70" value="<%=c.getAddress() %>">
+			<%} %>
+			주소를 적어 주세요.</td>	
+			</tr>	
+			<tr>
 				<td colspan="2" align="center" bgcolor="<%=value_c %>">
 				<input type="submit" name="modify" value="수 정">
 				<input type="button" value="취 소" onclick="javascript:window.location='main.jsp'">
 				</td>
-			</tr>									
+			</tr>	
+		
+											
 	</table>
 	</form>
 </body>

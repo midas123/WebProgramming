@@ -1,6 +1,7 @@
 package logon;
 
 import java.sql.*;
+import java.util.Vector;
 
 public class LogonDBBean {
 	//SingleTon Pattern
@@ -26,7 +27,7 @@ public class LogonDBBean {
 		try {
 			conn = getConnection();
 			
-			pstmt = conn.prepareStatement("insert into myshop00 values(?,?,?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into myshop00(id, passwd, name, jumin1, jumin2, email"+",blog,reg_date, zipcode, address) values(?,?,?,?,?,?,?,?,?,?)");
 			pstmt.setString(1, member.getId());
 			pstmt.setString(2, member.getPasswd());
 			pstmt.setString(3, member.getName());
@@ -35,8 +36,10 @@ public class LogonDBBean {
 			pstmt.setString(6, member.getEmail());
 			pstmt.setString(7, member.getBlog());
 			pstmt.setTimestamp(8, member.getReg_date());
-		
+			pstmt.setString(9, member.getZipcode());
+			pstmt.setString(10, member.getAddress());
 			pstmt.executeQuery();
+			
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -128,6 +131,8 @@ public class LogonDBBean {
 				member.setEmail(rs.getString("email"));
 				member.setBlog(rs.getString("blog"));
 				member.setReg_date(rs.getTimestamp("reg_date"));
+				member.setZipcode(rs.getString("zipcode"));
+				member.setAddress(rs.getString("address"));
 			}
 		} catch(Exception ex) {
 			ex.printStackTrace();
@@ -146,12 +151,14 @@ public class LogonDBBean {
 		try {
 			conn = getConnection();
 			
-			pstmt = conn.prepareStatement("update myshop00 set passwd=?, name=?, email=?, blog=? " +"where id=?");
+			pstmt = conn.prepareStatement("update myshop00 set passwd=?, name=?, email=?, blog=?, zipcode=?, address=? " +"where id=?");
 			pstmt.setString(1, member.getPasswd());
 			pstmt.setString(2, member.getName());
 			pstmt.setString(3, member.getEmail());
 			pstmt.setString(4, member.getBlog());
-			pstmt.setString(5, member.getId());
+			pstmt.setString(5, member.getZipcode());
+			pstmt.setString(6, member.getAddress());
+			pstmt.setString(7, member.getId());
 		
 			pstmt.executeQuery();
 		} catch(Exception ex) {
@@ -194,6 +201,37 @@ public class LogonDBBean {
 			if (conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
 		return x;
+	}
+	
+	public Vector zipcodeRead(String area3) { //제너릭 추가해보기
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Vector vecList = new Vector();
+		
+		try {
+			con= getConnection();
+			String strQuery = "select * from myshop00_zipcode where area3 like '"+area3+"%'";
+			pstmt = con.prepareStatement(strQuery);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ZipcodeBean tempZipcode = new ZipcodeBean();
+				tempZipcode.setZipcode(rs.getString("zipcode"));
+				tempZipcode.setArea1(rs.getString("area1"));
+				tempZipcode.setArea2(rs.getString("area2"));
+				tempZipcode.setArea3(rs.getString("area3"));
+				tempZipcode.setArea4(rs.getString("area4"));
+				vecList.addElement(tempZipcode);
+			}
+		} catch(Exception ex) {
+			System.out.println("Exception"+ex);
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(con != null) try {con.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+		}
+		return vecList;
 	}
 	
 }
