@@ -51,7 +51,12 @@
 	function zipCheck(){
 		url="Zipcheck.jsp?check=";
 		window.open(url,"post","toolbar=no, width=500, height=300, directories=no, status=yes, scrollbars=yes, menubar=no");
-	} 
+	}
+	
+	function zipCheck_daum() {
+		url="Zipcheck_daum.jsp?check=";
+		window.open(url,"post","toolbar=no, width=500, height=300, directories=no, status=yes, scrollbars=yes, menubar=no");
+	}
 </script>
 </head>
 
