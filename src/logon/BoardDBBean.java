@@ -41,9 +41,9 @@ public class BoardDBBean {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next())
-				number=rs.getInt(1)+1;
+				number=rs.getInt(1)+1; //getInt(1)는 ResultSet으로 가져온 column값 중 첫번째를 int타입으로 가져온다.
 			else
-				number=1;
+				number=1; //DB에 데이터가 없다면 첫번재 게시글이 된다.
 			
 			if(num!=0) {
 			sql="update board_00 set re_step=re_step+1 where ref=? and re_step=?";
