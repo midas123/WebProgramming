@@ -9,14 +9,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-<!--     <servlet>
+    <servlet>
   	<servlet-name>DBCPInit</servlet-name>
-  	<servlet-class>apr06.DBCPInit</servlet-class>
+  	<servlet-class>util.DBCPInit</servlet-class>
   	<init-param>
   		<param-name>jdbcdriver2</param-name>
   		<param-value>oracle.jdbc.driver.OracleDriver</param-value>
   	</init-param>
   	<load-on-startup>1</load-on-startup>
-  </servlet> -->
+  </servlet>
+
   
 </web-app>

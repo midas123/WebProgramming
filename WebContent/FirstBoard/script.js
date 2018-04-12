@@ -1,25 +1,25 @@
 function writeSave() {
-	if(document.writeform.wirter.value==""){
-		alert("ì‘ì„±ìë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+	if(document.writeform.writer.value==""){
+		alert("ÀÛ¼ºÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
 		document.writeform.writer.focus();
 		return false;
 	}
 	
 	if(document.writeform.subject.value==""){
-		alert("ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”.");
-		document.write.form.subject.focus();
+		alert("Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
+		document.writeform.subject.focus();
 		return false;
 	}
 	
 	if(document.writeform.content.value==""){
-		alert("ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”.");
-		document.write.form.content.focus();
+		alert("³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
+		document.writeform.content.focus();
 		return false;
 	}
 	
 	if(document.writeform.passwd.value==""){
-		alert(" ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
-		document.write.form.passwd.focus();
+		alert(" ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+		document.writeform.passwd.focus();
 		return false;
 	}
 	

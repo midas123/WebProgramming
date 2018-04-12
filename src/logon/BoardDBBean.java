@@ -4,7 +4,6 @@ import java.sql.*;
 import javax.sql.*;
 import javax.naming.*;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 
 public class BoardDBBean {
 	private static BoardDBBean instance = new BoardDBBean();
@@ -46,7 +45,7 @@ public class BoardDBBean {
 				number=1; //DB에 데이터가 없다면 첫번재 게시글이 된다.
 			
 			if(num!=0) {
-			sql="update board_00 set re_step=re_step+1 where ref=? and re_step=?";
+			sql="update board_00 set re_step=re_step+1 where ref=? and re_step>?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,  ref);
 			pstmt.setInt(2, re_step);
@@ -61,7 +60,7 @@ public class BoardDBBean {
 				re_level=0;
 			}
 			sql = "insert into board_00(num,writer,email,subject,passwd,reg_date,";
-			sql += "ref,re_step,re_level,content,ip) values(board_num_00.NEXTVAL,?,?,?,?,?,?,?,?,?,?)";
+			sql += "ref,re_step,re_level,content,ip) values(board_00_num.NEXTVAL,?,?,?,?,?,?,?,?,?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, article.getWriter());
@@ -120,11 +119,12 @@ public class BoardDBBean {
 		try {
 			conn = getConnection();
 			
-			pstmt = conn.prepareStatement(
-					"select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,redcount,r "+
-			"from (select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,redcount,rownum r " +
-							"from (select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,redcount "+
-			"from board_00 order by ref desc, re_step asc) order by ref desc, re_step asc) where r <= ? and r <= ?");
+			pstmt = conn.prepareStatement("select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount,r  " +
+		            "from (select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount,rownum r " +
+		            "from (select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount " +
+		            "from board_00 order by ref desc, re_step asc) order by ref desc, re_step asc ) where r >= ? and r <= ? ");
+			
+			
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
 			rs = pstmt.executeQuery();
@@ -142,7 +142,7 @@ public class BoardDBBean {
 					article.setReadcount(rs.getInt("readcount"));
 					article.setRef(rs.getInt("ref"));
 					article.setRe_step(rs.getInt("re_step"));
-					article.setRe_level(rs.getInt("level"));
+					article.setRe_level(rs.getInt("re_level"));
 					article.setContent(rs.getString("content"));
 					article.setIp(rs.getString("ip"));
 					articleList.add(article);
@@ -190,7 +190,7 @@ public class BoardDBBean {
 				article.setReadcount(rs.getInt("readcount"));
 				article.setRef(rs.getInt("ref"));
 				article.setRe_step(rs.getInt("re_step"));
-				article.setRe_level(rs.getInt("level"));
+				article.setRe_level(rs.getInt("re_level"));
 				article.setContent(rs.getString("content"));
 				article.setIp(rs.getString("ip"));
 			}
@@ -228,7 +228,7 @@ public class BoardDBBean {
 				article.setReadcount(rs.getInt("readcount"));
 				article.setRef(rs.getInt("ref"));
 				article.setRe_step(rs.getInt("re_step"));
-				article.setRe_level(rs.getInt("level"));
+				article.setRe_level(rs.getInt("re_level"));
 				article.setContent(rs.getString("content"));
 				article.setIp(rs.getString("ip"));
 			}
@@ -254,12 +254,10 @@ public class BoardDBBean {
 		
 		try {
 			conn = getConnection();
-			
 			pstmt = conn.prepareStatement(
 					"select passwd from board_00 where num = ?");
 			pstmt.setInt(1, article.getNum());
 			rs = pstmt.executeQuery();
-		
 		if(rs.next()) {
 			dbpasswd = rs.getString("passwd");
 			if(dbpasswd.equals(article.getPasswd())) {
@@ -274,7 +272,6 @@ public class BoardDBBean {
 				pstmt.setString(5, article.getContent());
 				pstmt.setInt(6, article.getNum());
 				pstmt.executeUpdate();
-				
 				x=1;
 			} else {
 				x=0;

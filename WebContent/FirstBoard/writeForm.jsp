@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>게시판</title>
 <link href="style.css" rel="stylesheet" type="text/css">
-<script language="javascript" src="script.js"></script>
+<script language="javaScript" src="script.js"></script>
 </head>
 <%
 int num=0, ref=1, re_step=0, re_level=0;
@@ -23,7 +23,7 @@ try{
 <body bgcolor="<%=bodyback_c %>">
 <center><b>글쓰기</b>
 <br>
-<form method="post" name="writeform" action="writePro.jsp" onsubmit="retrun writeSave()">
+<form method="post" name="writeform" action="writePro.jsp" onsubmit="return writeSave()">
 <input type="hidden" name="num" value="<%=num%>">
 <input type="hidden" name="ref" value="<%=ref%>">
 <input type="hidden" name="re_step" value="<%=re_step%>">

@@ -74,9 +74,10 @@
 <%
 	for(int i =0; i<articleList.size(); i++) {
 		BoardDataBean article = (BoardDataBean)articleList.get(i);
+		
 %>	
  <tr height="30">
-	 <td align="center" width="50"> <%=number-- %></td>
+	 <td align="center" width="50"> <%=number-- %></td> 
 	 <td width="250">
 <%
 	int wid=0;
