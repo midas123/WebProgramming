@@ -7,7 +7,7 @@
 <%@ include file="./color.jsp" %>
 
 <%!
-	int pageSize=3;
+	int pageSize=10; //3
 	SimpleDateFormat sdf=
 			new SimpleDateFormat("yyyy-MM-dd HH:mm");
 %>
@@ -20,7 +20,7 @@
 	
 	int currentPage = Integer.parseInt(pageNum);
 	System.out.println(currentPage);
-	int startRow = (currentPage *3) -2;
+	int startRow = (currentPage *10) -9; //3 -2
 	int endRow = currentPage * pageSize;
 	int count =0;
 	int number = 0;

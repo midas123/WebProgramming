@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ include file="./color.jsp" %>
+<%@ page import = "util.CookieBox" %>
 
+<%
+	CookieBox cookieBox = new CookieBox(request);
+%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
@@ -33,26 +37,54 @@ return false;
 		&nbsp;
 		</td>
 		
-		<form name="inform" method="post" action="loginPro.jsp" onSubmit="return cheickIt()">
+		<form name="inform" method="post" action="loginPro.jsp" onSubmit="return cheickIt();">
+<%
+if(cookieBox.exists("ID")){
+%>		
+		
 			<td bgcolor="<%=title_c %>" width="100" align="right">아이디</td>
 			<td width = "100" bgcolor="<%=value_c %>">
-				<input type="text" name="id" size="15" maxlength="10"></td>
+				<input type="text" name="id" size="15" maxlength="10" value="<%=cookieBox.getValue("ID") %>"></td>
+<%
+	} else {
+%>		<td bgcolor="<%=title_c %>" width="100" align="right">아이디</td>
+			<td width = "100" bgcolor="<%=value_c %>">
+			<input type="text" name="id" size="15" maxlength="10"></td>
+<%} %>		
 		</tr>
 		<tr>
 			<td rowspan="2" bgcolor="<%=bodyback_c %>" width="300"> 메인입니다.</td>
 			<td bgcolor="<%=title_c %>" width="100" align="right">패스워드</td>
 			<td width="100" bgcolor="<%=value_c %>">
 				<input type="password" name="passwd" size="15" maxlength="10"></td>
-		</tr>		
+		</tr>
+<%
+if(cookieBox.exists("ID")){
+
+%>		
+				
 		<tr>
 			<td colspan="3" bgcolor="<%=title_c %>" align="center">
 				<input type="submit" name="Submit" value="로그인">
 				<input type="button" value="회원가입" onclick="javascript:window.location='inputForm.jsp'">
-			</td>
+			
+			아이디 저장 <input type="checkbox" name="save" value="true" checked></td>
 		</form>	
 		</tr>
 	</table>		
 <% }else{ %>
+			<tr>
+			<td colspan="3" bgcolor="<%=title_c %>" align="center">
+				<input type="submit" name="Submit" value="로그인">
+				<input type="button" value="회원가입" onclick="javascript:window.location='inputForm.jsp'">
+			
+			아이디 저장 <input type="checkbox" name="save" value="true"></td>
+		</form>	
+		</tr>
+	</table>	
+<%} %>
+
+<% }else {%>
 	<table width=500 cellpadding="0" cellspacing="0" align="center" border="1">
 	<tr>
 		<td width="300" bgcolor="<%=bodyback_c %>" height="20">하하하</td>
@@ -70,7 +102,7 @@ return false;
 	</tr>		
 	</table>
 	<br>
-<%}
-	}catch(NullPointerException e) {}%>	
+<%} %>
+<%	}catch(NullPointerException e) {}%>	
 </body>
 </html>
