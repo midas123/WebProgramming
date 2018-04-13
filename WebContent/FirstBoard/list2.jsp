@@ -10,12 +10,26 @@
 	int pageSize=3; //10
 	SimpleDateFormat sdf=
 			new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	
 %>
 
+
 <%
+	request.setCharacterEncoding("euc-kr");
 	String pageNum = request.getParameter("pageNum");
+	String search = request.getParameter("search");
+
+	
+	int searchn=0;
+	
 	if(pageNum == null){
 		pageNum = "1";
+	}
+	
+	if(search ==null){
+		search ="";
+	} else {
+		searchn = Integer.parseInt(request.getParameter("searchn"));
 	}
 	
 	int currentPage = Integer.parseInt(pageNum);
@@ -27,10 +41,27 @@
 	
 	List articleList = null;
 	BoardDBBean dbPro = BoardDBBean.getInstance();
-	count = dbPro.getArticleCount();
+	
+	if(search.equals("") || search == null)
+		count = dbPro.getArticleCount();
+	else
+		count = dbPro.getArticleCount(searchn,search);
+	
+	if(count>0)
+	{
+		if(search.equals("") || search == null)
+			articleList = dbPro.getArticles(startRow, endRow);
+		else
+			articleList = dbPro.getArticles(startRow, endRow, searchn, search);
+	}
+	
+	
+	/* count = dbPro.getArticleCount();
 	if(count>0){
 		articleList = dbPro.getArticles(startRow, endRow);
 	}
+	 */
+	 
 	number=count-(currentPage-1)*pageSize;
 	//11 -(2-1)*3 = 8
 %>
@@ -82,11 +113,13 @@
 <%
 	int wid=0;
 	if(article.getRe_level()>0){
+		//답변글이라면
 		wid=5*(article.getRe_level());
 %> 
 	<img src="./images/level.gif" width="<%=wid %>" height="16">
 	<img src="./images/re.gif">
 	<%}else{ %>
+		
 	<img src="./images/level.gif" width="<%=wid %>" height="16">
 	<%} %>
 
@@ -106,6 +139,7 @@
 
 <%
 	if(count>0) {
+		// 전체 페이지 수를 연산
 		int pageCount = count /pageSize + (count % pageSize == 0 ? 0:1);
 		
 		int startPage = (int)(currentPage/5)*5+1;
@@ -114,19 +148,74 @@
 		if(endPage > pageCount) endPage = pageCount;
 		
 		if(startPage>5){ 
+			if(search.equals("") || search ==null)
+			{
 %>
-<a href="list.jsp?pageNum=<%=startPage-5 %>">[이전]</a>
+<a href="list2.jsp?pageNum=<%=startPage-5 %>">[이전]</a>
 <%
 		}
-		for(int i= startPage; i<= endPage; i++){ 
-%>
-<a href="list.jsp?pageNum=<%=i %>">[<%=i %>]</a>
+			else
+			{		
+%>			
+<a href="list2.jsp?pageNum=<%=startPage -5 %>&search=<%=search %>&searchn=<%=searchn %>">[이전]</a>
+<%
+			}
+%>			
 <%
 		}
-		if(endPage <pageCount){ %>
-		<a href="list.jsp?pageNum=<%=startPage+5 %>">[다음]</a>
+		
+		for(int i = startPage; i<=endPage; i++)
+		{
+			if(search.equals("")||search== null)
+			{
+%>
+<a href="list2.jsp?pageNum=<%=i %>">[<%=i %>]</a>				
+<%
+			}
+			else
+			{
+%>			
+<a href="list2.jsp?pageNum=<%=i %>&search=<%=search %>&searchn=<%=searchn %>">[<%=i %>]</a>
+<%
+			}
+%>
+<%
+		}
+		if(endPage < pageCount){
+			if(search.equals("")||search==null)
+			{
+%>	
+<a href="list2.jsp?pageNum=<%=startPage + 5 %>">[다음]</a>
+<%
+			}
+			else
+			{
+%>
+<a href="list2.jsp?pageNum=<%=startPage + 5 %>&search=<%=search %>&searchn=<%=searchn %>">[다음]</a>
+<%
+			}
+%>
+<%
+		}
+	}
+%>
+</p>
+<form>
+<select name="searchn">
+<option value="0">작성자</option>
+<option value="1">제목</option>
+<option value="2">내용</option>
+</select>
 
-<%} }%>		
+<input type="text" name="search" size="15" maxlength="50"/>
+<input type="submit" value="검색"/>
+</form>
+</body>
+</html>
+
+</form>
+
+
 </center>
 </body>
 </html>

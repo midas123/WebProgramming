@@ -109,6 +109,9 @@ public class BoardDBBean {
 		return x;
 		}
 	
+	
+	
+	
 	//list.jps
 	public List getArticles(int start, int end) throws Exception {
 		Connection conn = null;
@@ -320,6 +323,88 @@ public class BoardDBBean {
 			if (conn != null) try {conn.close();} catch(SQLException ex) {}
 		}
 		return x;
+	}
+	//게시판 검색 기능 추가
+	
+	public int getArticleCount(int n, String searchKeyword) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String[] column_name = {"writer", "subject", "content"};
+		
+		int x = 0;
+		
+		try {
+			conn=getConnection();
+			pstmt = conn.prepareStatement("select count(*) from board_00 where "+column_name[n]+" like '%"+searchKeyword+"%'");
+			rs = pstmt.executeQuery();
+			
+			if(rs.next())
+				x = rs.getInt(1);
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if(rs != null) try { rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try { pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try { conn.close();} catch(SQLException ex) {}
+		}
+		return x;
+		}
+		
+	public List getArticles(int start, int end, int n, String searchKeyword) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List articleList = null;
+		
+		String[] column_name = {"writer", "subject", "content"};
+		
+		try {
+			conn = getConnection();
+			String sql = "select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount,r "+
+			"from (select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount,rownum r "+
+					"from (select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount "+"from board_00 order by ref desc, re_step asc) where "+column_name[n]+" like '%"+searchKeyword+"%' order by ref desc, re_step asc) where r >=? and r<=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				articleList = new ArrayList(end);
+				
+				do {
+						BoardDataBean article = new BoardDataBean();
+						
+						article.setNum(rs.getInt("num"));
+						article.setWriter(rs.getString("writer"));
+						article.setEmail(rs.getString("email"));
+						article.setSubject(rs.getString("subject"));
+						article.setPasswd(rs.getString("passwd"));
+						article.setReg_date(rs.getTimestamp("reg_date"));
+						article.setReadcount(rs.getInt("readcount"));
+						article.setRef(rs.getInt("ref"));
+						article.setRe_step(rs.getInt("re_step"));
+						article.setRe_level(rs.getInt("re_level"));
+						article.setContent(rs.getString("content"));
+						article.setIp(rs.getString("ip"));
+						
+						articleList.add(article);
+						
+				}while(rs.next());
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		
+		return articleList;
 	}
 	
 }
