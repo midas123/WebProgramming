@@ -6,7 +6,7 @@
 <%
  	String comment_num = request.getParameter("cmn");
 	String content_num = request.getParameter("ctn");
-	String p_num = request.getParameter("P_num");
+	String p_num = request.getParameter("p_num");
 	String url="content1.jsp?num="+content_num+"&pageNum="+p_num;
 %>    
 <html>
@@ -16,7 +16,7 @@
 <script language="javascript">
 	<!--
 	function deleteSave(){
-		if(document.delForm.passwd.value==""){
+		if(document.delForm.passwd.value==''){
 			alert("비밀번호를 입력하십시요.");
 			document.delForm.passwd.focus();
 			return false;
@@ -28,7 +28,7 @@
 </head>
 <body bgcolor=<%=bodyback_c %>>
 <center>
-<form method=post name=delForm action="delCommentPro.jsp" onsubmit="return delteSave()">
+<form method=post name=delForm action="delCommentPro.jsp" onsubmit="return deleteSave()">
 	<table border=1 align=center cellspacing=0 cellpadding=0 width=360>
 		<tr height=30>
 			<td align=center bgcolor=<%=value_c %>>
@@ -45,7 +45,7 @@
 		</tr>
 		<tr height=30>
 			<td align=center bgcolor=<%=value_c %>>
-				<input type="submit" value="고멘트 삭제">
+				<input type="submit" value="코멘트 삭제">
 				<input type="button" value="취소" onclick="document.location.href='<%=url%>'">
 			</td>
 		</tr>

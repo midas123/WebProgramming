@@ -129,7 +129,7 @@ public class CommentDBBean {
 		return count;
 	}
 	
-	public int deleteComment(int content_num,String passwd,int comment_num) throws Exception {
+	public int deleteComment(int content_num, String passwd, int comment_num) throws Exception {
 		Connection conn=null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

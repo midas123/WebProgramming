@@ -9,7 +9,7 @@
 <%@ include file="./color.jsp" %>
 
 <%!
-	int pageSize=3; //10
+	int pageSize=10; //10
 	SimpleDateFormat sdf=
 			new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	
@@ -36,7 +36,7 @@
 	
 	int currentPage = Integer.parseInt(pageNum);
 	System.out.println(currentPage);
-	int startRow = (currentPage *3) -2; //10 -9
+	int startRow = (currentPage *10) -9; //10 -9
 	int endRow = currentPage * pageSize;
 	int count =0;
 	int number = 0;
@@ -126,7 +126,7 @@
 	<%}else{ %>
 		
 	<img src="./images/level.gif" width="<%=wid %>" height="16">
-	<%} System.out.println(article.getNum()); %>
+	<%} %>
 	<%if(com_count>0) {%>
 	<a href="content1.jsp?num=<%=article.getNum() %>&pageNum=<%=currentPage%>">
 	<%=article.getSubject() %>[<%=com_count %>]</a>

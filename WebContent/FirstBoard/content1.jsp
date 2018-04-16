@@ -107,8 +107,8 @@ for(int i=0; i<comments.size(); i++){
 	CommentDataBean dbc= (CommentDataBean)comments.get(i);
 %>
 	<tr>
-		<td align=left size=250 bgcolor=<%=value_c %>>&nbsp;<b><%=dbc.getCommenter() %>&nbsp;</b>
-		(<%=sdf.format(dbc.getReg_date()) %>)
+		<td align=left size=250 bgcolor=<%=value_c %>>
+		&nbsp;<b><%=dbc.getCommenter() %>&nbsp;님</b>(<%=sdf.format(dbc.getReg_date()) %>)
 		</td>
 		<td align=right size=250 bgcolor=<%=value_c %>> 접속IP:<%=dbc.getIp() %>&nbsp;
 		<a href="delCommentForm.jsp?ctn=<%=dbc.getContent_num() %>&cmn=<%=dbc.getComment_num() %>&p_num=<%=pageNum %>">[삭제]</a>&nbsp;
@@ -135,8 +135,13 @@ for(int i=0; i<comments.size(); i++){
 	<a href="content1.jsp?num=<%=num %>&pageNum=<%=pageNum %>&cPageNum=<%=startPage-5 %>">[이전]</a>
 <%
 } 
-for(int i =startPage; i<=endPage; i++) {
-%>	
+for(int i =startPage; i<=endPage; i++) { 
+%>
+<a href="content1.jsp?num=<%=num %>&pageNum=<%=pageNum %>&cPageNum=<%= i %>">[<%= i %>]</a>
+<% }
+
+if(endPage < pageCount) {
+%>
 	<a href="content1.jsp?num=<%=num %>&pageNum=<%=pageNum %>&cPageNum=<%=startPage+5 %>">[다음]</a>
 <%
 }}
