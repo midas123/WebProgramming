@@ -7,7 +7,7 @@
 <%
 	String id = request.getParameter("id");
 	String passwd = request.getParameter("passwd");
-	
+	Cookie cookie = new Cookie("memId", id);
 	
 	LogonDBBean manager= LogonDBBean.getInstance();
 	int check = manager.userCheck(id,passwd);
@@ -15,6 +15,8 @@
 	if(check==1){
 		session.setAttribute("memId", id);
 		response.sendRedirect("main.jsp");
+		response.addCookie(cookie);
+		System.out.println("Save cookie");
 	} else if(check==0) {
 %>
 
