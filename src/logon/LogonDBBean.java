@@ -234,4 +234,62 @@ public class LogonDBBean {
 		return vecList;
 	}
 	
+	public String FindUserId(String jumin1, String jumin2, String name) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String s = "";
+		
+		try {
+		conn = getConnection();	
+		pstmt = conn.prepareStatement("select id from myshop00 where name=? and jumin1=? and jumin2=?");
+		pstmt.setString(1, name);
+		pstmt.setString(2, jumin1);
+		pstmt.setString(3, jumin2);
+		
+		rs = pstmt.executeQuery();
+		System.out.println("executeQuery");
+		
+		if(rs.next()) {
+			s = rs.getString("id");
+		}
+		
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+		}
+		return s;
+	}
+	
+	public String FindPasswd(String id, String name, String jumin1, String jumin2) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String dbPasswd = "";
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select passwd from myshop00 where id=? and name=? and jumin1=? and jumin2=?");
+			pstmt.setString(1, id);
+			pstmt.setString(2, name);
+			pstmt.setString(3, jumin1);
+			pstmt.setString(4, jumin2);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dbPasswd = rs.getString("passwd");
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+		}
+		return dbPasswd;
+	}
+	
 }

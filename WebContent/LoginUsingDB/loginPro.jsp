@@ -8,10 +8,6 @@
 <%
 String id = request.getParameter("id");
 String passwd = request.getParameter("passwd");
-Cookie cookie = new Cookie("ID", id);
-
-System.out.println("id:"+id);
-System.out.println("passwd:"+passwd);
 
 
 LogonDBBean manager= LogonDBBean.getInstance();

@@ -5,6 +5,7 @@
 
 <%
 	CookieBox cookieBox = new CookieBox(request);
+	System.out.println(cookieBox.getValue("ID"));
 %>
 <html>
 <head>
@@ -37,7 +38,7 @@ return false;
 		&nbsp;
 		</td>
 		
-		<form name="inform" method="post" action="loginPro.jsp" onSubmit="return cheickIt();">
+		<form name="inform" method="post" action="loginPro.jsp" onSubmit="return checkIt();">
 <%
 if(cookieBox.exists("ID")){
 %>		
@@ -68,7 +69,7 @@ if(cookieBox.exists("ID")){
 				<input type="submit" name="Submit" value="로그인">
 				<input type="button" value="회원가입" onclick="javascript:window.location='inputForm.jsp'">
 			
-			아이디 저장 <input type="checkbox" name="save" value="true" checked></td>
+			아이디 저장 <input type="checkbox" name="save" value="true"></td>
 		</form>	
 		</tr>
 	</table>		

@@ -33,7 +33,7 @@
 %>
 
 <form name="myform" action="loginPro.jsp" method="post" onSubmit="return checkIt()">
-<table cellspacing=1 cellpadding=1 width="260" border=1 align="center">
+<table cellspacing=1 cellpadding=1 width="400" border=1 align="center">
 	<tr height="30">
 		<td colspan="2" align="middle" bgcolor="<%=title_c %>">
 		<strong>회원로그인</strong>
@@ -44,12 +44,17 @@
 	<tr height="30">
 		<td width="110" bgcolor="<%=title_c %>" align=center>아이디</td>
 		<td width="150" bgcolor="<%=value_c %>" align=center>
-			<input type="text" name="id" size="15" maxlength="12"></td>
-	</tr>
+			<input type="text" name="id" size="15" maxlength="12" value="<%=cookieBox.getValue("ID") %>"></td>
+		<td width= "90" bgcolor="<%=value_c %>" align=center>
+			<input type="button" value="아이디 찾기" onclick="javascript:window.location='searchIdForm.jsp'"></td>
+			
+		</tr>
 	<tr height="30">
 		<td width="110" bgcolor="<%=title_c %>" align="center">비밀번호</td>
 		<td width="150" bgcolor="<%=value_c %>" align="center">
 			<input type="password" name="passwd" size="15" maxlength="12"></td>
+		<td width= "90" bgcolor="<%=value_c %>" align=center>
+		<input type="button" value="비밀번호 찾기" onclick="javascript:window.location='searchPwForm.jsp'"></td>	
 	</tr>
 	<tr height="30">
 		<td colspan="2" align="middle" bgcolor="<%=title_c %>">
