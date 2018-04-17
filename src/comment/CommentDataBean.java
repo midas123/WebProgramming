@@ -10,6 +10,7 @@ public class CommentDataBean {
 	private String passwd;
 	private Timestamp reg_date;
 	private String ip;
+	
 	public int getComment_num() {
 		return comment_num;
 	}

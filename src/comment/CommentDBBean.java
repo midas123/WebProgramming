@@ -148,7 +148,7 @@ public class CommentDBBean {
 				if(dbpasswd.equals(passwd)) {
 					pstmt = conn.prepareStatement("delete from comment_00 where content_num=? and comment_num=?");
 					pstmt.setInt(1, content_num);
-					pstmt.setInt(2, content_num);
+					pstmt.setInt(2, comment_num);
 					pstmt.executeUpdate();
 					x=1;
 				} else
