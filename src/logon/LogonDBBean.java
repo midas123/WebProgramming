@@ -1,6 +1,8 @@
 package logon;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 public class LogonDBBean {
@@ -291,5 +293,155 @@ public class LogonDBBean {
 		}
 		return dbPasswd;
 	}
+	
+	public int getMemberCount() throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int x = 0;
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select count(*) from myshop00");
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				x=rs.getInt(1);}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (rs != null) try {rs.close();} catch(SQLException ex) {}
+				if (pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+				if (conn != null) try {conn.close();} catch(SQLException ex) {}
+			}
+		return x;
+		}
+	
+	public List getMembers(int start, int end) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List memberList = null;
+		
+		try {
+			conn = getConnection();
+			
+			pstmt = conn.prepareStatement("select id,passwd,name, jumin1, jumin2, email, blog, reg_date, zipcode,address,r  " +
+		            "from (select id,passwd,name, jumin1, jumin2, email, blog, reg_date, zipcode,address, rownum r " +
+		            "from (select id,passwd,name, jumin1, jumin2, email, blog, reg_date, zipcode,address " +
+		            "from myshop00 order by id desc) order by reg_date desc ) where r >= ? and r <= ? ");
+			
+			
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				memberList = new ArrayList(end);
+				do {
+					LogonDataBean member = new LogonDataBean();
+					member.setId(rs.getString("id"));
+					member.setPasswd(rs.getString("passwd"));
+					member.setName(rs.getString("name"));
+					member.setJumin1(rs.getString("jumin1"));
+					member.setJumin2(rs.getString("jumin2"));
+					member.setEmail(rs.getString("email"));
+					member.setBlog(rs.getString("blog"));
+					member.setReg_date(rs.getTimestamp("reg_date"));
+					member.setZipcode(rs.getString("zipcode"));
+					member.setAddress(rs.getString("address"));
+					memberList.add(member);
+				
+				} while(rs.next());
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (rs != null) try {rs.close();} catch(SQLException ex) {}
+			if (pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if (conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		
+		return memberList;
+	}
+	
+	public int getMemberCount(int n, String searchKeyword) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String[] column_name = {"id", "name", "jumin1"};
+		
+		int x = 0;
+		
+		try {
+			conn=getConnection();
+			pstmt = conn.prepareStatement("select count(*) from myshop00 where "+column_name[n]+" like '%"+searchKeyword+"%'");
+			rs = pstmt.executeQuery();
+			
+			if(rs.next())
+				x = rs.getInt(1);
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if(rs != null) try { rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try { pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try { conn.close();} catch(SQLException ex) {}
+		}
+		return x;
+		}
+		
+	public List getMembers(int start, int end, int n, String searchKeyword) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List memberList = null;
+		
+		String[] column_name = {"id", "name", "jumin1"};
+		
+		try {
+			conn = getConnection();
+			String sql = "select id,passwd,name, jumin1, jumin2, email, blog, reg_date, zipcode,address,r  "+
+			"from (select id,passwd,name, jumin1, jumin2, email, blog, reg_date, zipcode,address,rownum r "+
+					"from (id,passwd,name, jumin1, jumin2, email, blog, reg_date, zipcode,address, "+"from myshop00 order by id desc) order by reg_date desc ) where "+column_name[n]+" like '%"+searchKeyword+"%' order by id desc, reg_date desc) where r >=? and r<=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				memberList = new ArrayList(end);
+				
+				do {
+					LogonDataBean member = new LogonDataBean();
+					member.setId(rs.getString("id"));
+					member.setPasswd(rs.getString("passwd"));
+					member.setName(rs.getString("name"));
+					member.setJumin1(rs.getString("jumin1"));
+					member.setJumin2(rs.getString("jumin2"));
+					member.setEmail(rs.getString("email"));
+					member.setBlog(rs.getString("blog"));
+					member.setReg_date(rs.getTimestamp("reg_date"));
+					member.setZipcode(rs.getString("zipcode"));
+					member.setAddress(rs.getString("address"));
+					memberList.add(member);
+						
+				}while(rs.next());
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {}
+		}
+		
+		return memberList;
+	}
+	
 	
 }
