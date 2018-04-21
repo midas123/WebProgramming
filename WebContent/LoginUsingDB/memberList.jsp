@@ -5,7 +5,7 @@
 <%@ page import ="java.util.List" %>
 
 <%!
-	int pageSize=10; //10
+	int pageSize=3; //10
 %>
 
 <%
@@ -24,11 +24,10 @@
 	} else {
 		searchn = Integer.parseInt(request.getParameter("searchn"));
 	}
-
 	
 	int currentPage = Integer.parseInt(pageNum);
 	System.out.println(currentPage);
-	int startRow = (currentPage *10) -9; //10 -9
+	int startRow = (currentPage *3) -2; //10 -9
 	int endRow = currentPage * pageSize;
 	int count =0;
 	int number = 0;
@@ -40,13 +39,14 @@
 		count = dbPro.getMemberCount();
 	else
 		count = dbPro.getMemberCount(searchn, search);
-	
 	if(count>0)
 	{
 		if(search.equals("") || search == null)
 			memberList = dbPro.getMembers(startRow, endRow);
+		
 		else
 			memberList = dbPro.getMembers(startRow, endRow, searchn, search);
+			
 	}
 	
 
@@ -96,7 +96,6 @@
 <%
 	for(int i =0; i<memberList.size(); i++) {
 		LogonDataBean member = (LogonDataBean)memberList.get(i);
-		System.out.println(member.getId());
 %>
 	<tr height="30">
 		<td align="center"> <%=member.getId() %> </td>
@@ -117,7 +116,72 @@
 
 }}%>
 </table>
-<form>
+
+<%
+	if(count>0) {
+		// 전체 페이지 수를 연산
+		int pageCount = count /pageSize + (count % pageSize == 0 ? 0:1);
+		
+		int startPage = (int)(currentPage/5)*5+1;
+		int pageBlock=5;
+		int endPage = startPage + pageBlock-1;
+		if(endPage > pageCount) endPage = pageCount;
+		
+		if(startPage>5){ 
+			if(search.equals("") || search ==null)
+			{
+%>
+<a href="memberList.jsp?pageNum=<%=startPage-5 %>">[이전]</a>
+<%
+		}
+			else
+			{		
+%>			
+<a href="memberList?pageNum=<%=startPage -5 %>&search=<%=search %>&searchn=<%=searchn %>">[이전]</a>
+<%
+			}
+%>			
+<%
+		}
+		
+		for(int i = startPage; i<=endPage; i++)
+		{
+			if(search.equals("")||search== null)
+			{
+%>
+<a href="memberList.jsp?pageNum=<%=i %>">[<%=i %>]</a>				
+<%
+			}
+			else
+			{
+%>			
+<a href="memberList.jsp?pageNum=<%=i %>&search=<%=search %>&searchn=<%=searchn %>">[<%=i %>]</a>
+<%
+			}
+%>
+<%
+		}
+		if(endPage < pageCount){
+			if(search.equals("")||search==null)
+			{
+%>	
+<a href="memberList.jsp?pageNum=<%=startPage + 5 %>">[다음]</a>
+<%
+			}
+			else
+			{
+%>
+<a href="memberList.jsp?pageNum=<%=startPage + 5 %>&search=<%=search %>&searchn=<%=searchn %>">[다음]</a>
+<%
+			}
+%>
+<%
+		}
+	}
+%>
+
+
+<form method="post">
 <select name="searchn">
 <option value="0">ID</option>
 <option value="1">이름</option>

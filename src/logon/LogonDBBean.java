@@ -379,7 +379,6 @@ public class LogonDBBean {
 			conn=getConnection();
 			pstmt = conn.prepareStatement("select count(*) from myshop00 where "+column_name[n]+" like '%"+searchKeyword+"%'");
 			rs = pstmt.executeQuery();
-			
 			if(rs.next())
 				x = rs.getInt(1);
 		}
@@ -403,9 +402,10 @@ public class LogonDBBean {
 		
 		try {
 			conn = getConnection();
-			String sql = "select id,passwd,name, jumin1, jumin2, email, blog, reg_date, zipcode,address,r  "+
+			String sql = "select id,passwd,name, jumin1, jumin2, email, blog, reg_date, zipcode,address,r "+
 			"from (select id,passwd,name, jumin1, jumin2, email, blog, reg_date, zipcode,address,rownum r "+
-					"from (id,passwd,name, jumin1, jumin2, email, blog, reg_date, zipcode,address, "+"from myshop00 order by id desc) order by reg_date desc ) where "+column_name[n]+" like '%"+searchKeyword+"%' order by id desc, reg_date desc) where r >=? and r<=?";
+					"from (select id,passwd,name, jumin1, jumin2, email, blog, reg_date, zipcode,address "+
+			"from myshop00 order by id desc, reg_date desc) where "+column_name[n]+" like '%"+searchKeyword+"%' order by id desc, reg_date desc) where r >=? and r<=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);

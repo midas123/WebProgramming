@@ -2,4 +2,5 @@ eclipse.preferences.version=1
 encoding//WebContent/FirstBoard/script.js=EUC-KR
 encoding//WebContent/LoginUsingDB=EUC-KR
 encoding//WebContent/LoginUsingDB/main.jsp=EUC-KR
+encoding//src/logon/BoardDBBean.java=UTF-8
 encoding/<project>=EUC-KR

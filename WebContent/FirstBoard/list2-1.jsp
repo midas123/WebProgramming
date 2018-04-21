@@ -162,13 +162,13 @@
 			if(search.equals("") || search ==null)
 			{
 %>
-<a href="list2.jsp?pageNum=<%=startPage-5 %>">[이전]</a>
+<a href="list2-1.jsp?pageNum=<%=startPage-5 %>">[이전]</a>
 <%
 		}
 			else
 			{		
 %>			
-<a href="list2.jsp?pageNum=<%=startPage -5 %>&search=<%=search %>&searchn=<%=searchn %>">[이전]</a>
+<a href="list2-1.jsp?pageNum=<%=startPage -5 %>&search=<%=search %>&searchn=<%=searchn %>">[이전]</a>
 <%
 			}
 %>			
@@ -180,13 +180,13 @@
 			if(search.equals("")||search== null)
 			{
 %>
-<a href="list2.jsp?pageNum=<%=i %>">[<%=i %>]</a>				
+<a href="list2-1.jsp?pageNum=<%=i %>">[<%=i %>]</a>				
 <%
 			}
 			else
 			{
 %>			
-<a href="list2.jsp?pageNum=<%=i %>&search=<%=search %>&searchn=<%=searchn %>">[<%=i %>]</a>
+<a href="list2-1.jsp?pageNum=<%=i %>&search=<%=search %>&searchn=<%=searchn %>">[<%=i %>]</a>
 <%
 			}
 %>
@@ -196,13 +196,13 @@
 			if(search.equals("")||search==null)
 			{
 %>	
-<a href="list2.jsp?pageNum=<%=startPage + 5 %>">[다음]</a>
+<a href="list2-1.jsp?pageNum=<%=startPage + 5 %>">[다음]</a>
 <%
 			}
 			else
 			{
 %>
-<a href="list2.jsp?pageNum=<%=startPage + 5 %>&search=<%=search %>&searchn=<%=searchn %>">[다음]</a>
+<a href="list2-1.jsp?pageNum=<%=startPage + 5 %>&search=<%=search %>&searchn=<%=searchn %>">[다음]</a>
 <%
 			}
 %>
@@ -224,9 +224,8 @@
 </body>
 </html>
 
-</form>
 
 
-</center>
+
 </body>
 </html>

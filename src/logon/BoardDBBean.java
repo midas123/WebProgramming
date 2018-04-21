@@ -40,9 +40,9 @@ public class BoardDBBean {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next())
-				number=rs.getInt(1)+1; //getInt(1)는 ResultSet으로 가져온 column값 중 첫번째를 int타입으로 가져온다.
+				number=rs.getInt(1)+1; //getInt(1)�� ResultSet�쇰� 媛��몄�� column媛� 以� 泥ル�吏몃�� int�����쇰� 媛��몄�⑤��.
 			else
-				number=1; //DB에 데이터가 없다면 첫번재 게시글이 된다.
+				number=1; //DB�� �곗�댄�곌� ���ㅻ㈃ 泥ル��� 寃���湲��� ����.
 			
 			if(num!=0) {
 			sql="update board_00 set re_step=re_step+1 where ref=? and re_step>?";
@@ -324,7 +324,7 @@ public class BoardDBBean {
 		}
 		return x;
 	}
-	//게시판 검색 기능 추가
+	//寃����� 寃��� 湲곕�� 異�媛�
 	
 	public int getArticleCount(int n, String searchKeyword) throws Exception {
 		Connection conn = null;
@@ -365,7 +365,8 @@ public class BoardDBBean {
 			conn = getConnection();
 			String sql = "select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount,r "+
 			"from (select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount,rownum r "+
-					"from (select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount "+"from board_00 order by ref desc, re_step asc) where "+column_name[n]+" like '%"+searchKeyword+"%' order by ref desc, re_step asc) where r >=? and r<=?";
+					"from (select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount "+
+			"from board_00 order by ref desc, re_step asc) where "+column_name[n]+" like '%"+searchKeyword+"%' order by ref desc, re_step asc) where r >=? and r<=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
