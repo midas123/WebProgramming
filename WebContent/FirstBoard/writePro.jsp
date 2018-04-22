@@ -16,6 +16,6 @@ article.setReg_date(new Timestamp(System.currentTimeMillis()));
 article.setIp(request.getRemoteAddr());
 BoardDBBean dbPro = BoardDBBean.getInstance();
 dbPro.insertArticle(article);
-response.sendRedirect("list.jsp");
+response.sendRedirect("list2-1.jsp");
 %>
 

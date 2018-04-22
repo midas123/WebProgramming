@@ -39,7 +39,7 @@ public class BoardDBBean {
 			pstmt = conn.prepareStatement("select max(num) from board_00");
 			rs = pstmt.executeQuery();
 			
-			if(rs.next())
+			if(rs.next()) 
 				number=rs.getInt(1)+1; //getInt(1)�� ResultSet�쇰� 媛��몄�� column媛� 以� 泥ル�吏몃�� int�����쇰� 媛��몄�⑤��.
 			else
 				number=1; //DB�� �곗�댄�곌� ���ㅻ㈃ 泥ル��� 寃���湲��� ����.
