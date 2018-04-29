@@ -10,10 +10,14 @@ public class CommentDataBean {
 	private String passwd;
 	private Timestamp reg_date;
 	private String ip;
+	private int com_re_set;
+	private int com_re_level;
+	private int com_re_step;
 	
 	public int getComment_num() {
 		return comment_num;
 	}
+	
 	public void setComment_num(int comment_num) {
 		this.comment_num = comment_num;
 	}
@@ -53,6 +57,25 @@ public class CommentDataBean {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
+	public int getCom_re_set() {
+		return com_re_set;
+	}
+	public void setCom_re_set(int com_re_set) {
+		this.com_re_set = com_re_set;
+	}
+	public int getCom_re_level() {
+		return com_re_level;
+	}
+	public void setCom_re_level(int com_re_level) {
+		this.com_re_level = com_re_level;
+	}
+	public int getCom_re_step() {
+		return com_re_step;
+	}
+	public void setCom_re_step(int com_re_step) {
+		this.com_re_step = com_re_step;
+	}
+	
 	
 	
 	

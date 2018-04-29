@@ -40,9 +40,14 @@ public class BoardDBBean {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) 
-				number=rs.getInt(1)+1; //getInt(1)�� ResultSet�쇰� 媛��몄�� column媛� 以� 泥ル�吏몃�� int�����쇰� 媛��몄�⑤��.
+				number=rs.getInt(1)+1; //getInt(1)�� ResultSet�쇰� 媛��몄�� column媛� 以� 泥ル�吏몃�� int�����쇰� 媛��.
 			else
 				number=1; //DB�� �곗�댄�곌� ���ㅻ㈃ 泥ル��� 寃���湲��� ����.
+			
+			/*
+			 * 아래 if문은 메인글과 답변글 구분, list.jsp에서 writeForm.jsp로 넘어가면 num=0이됨 -> 새 글(메인글)
+			 * content.jsp에서 writeForm.jsp 넘어가면 num=게시글번호 -> 답변글
+			 */
 			
 			if(num!=0) {
 			sql="update board_00 set re_step=re_step+1 where ref=? and re_step>?";
@@ -121,7 +126,7 @@ public class BoardDBBean {
 		
 		try {
 			conn = getConnection();
-			
+			//list.jsp에서 출력되는 게시글 순서와 범위가 아래 쿼리문에서 정해진다.
 			pstmt = conn.prepareStatement("select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount,r  " +
 		            "from (select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount,rownum r " +
 		            "from (select num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip,readcount " +
@@ -172,10 +177,11 @@ public class BoardDBBean {
 		
 		try {
 			conn = getConnection();
+			//게시글 조회수 올려줌
 			pstmt = conn.prepareStatement(
 					"update board_00 set readcount=readcount+1 where num = ?");
 			pstmt.setInt(1, num);
-			pstmt.executeUpdate(); //update?
+			pstmt.executeUpdate();
 			
 			pstmt = conn.prepareStatement(
 					"select * from board_00 where num = ?");
