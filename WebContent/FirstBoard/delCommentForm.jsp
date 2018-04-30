@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
     
-<%@ include file="./color.jsp" %>
 
 <%
  	String comment_num = request.getParameter("cmn");
@@ -26,12 +25,12 @@
 
 </script>
 </head>
-<body bgcolor=<%=bodyback_c %>>
+<body>
 <center>
 <form method=post name=delForm action="delCommentPro.jsp" onsubmit="return deleteSave()">
 	<table border=1 align=center cellspacing=0 cellpadding=0 width=360>
 		<tr height=30>
-			<td align=center bgcolor=<%=value_c %>>
+			<td align=center>
 				<b>비밀번호를 입력해주세요</b>
 			</td>
 		</tr>
@@ -44,7 +43,7 @@
 			</td>
 		</tr>
 		<tr height=30>
-			<td align=center bgcolor=<%=value_c %>>
+			<td align=center>
 				<input type="submit" value="코멘트 삭제">
 				<input type="button" value="취소" onclick="document.location.href='<%=url%>'">
 			</td>

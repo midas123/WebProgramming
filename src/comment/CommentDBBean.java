@@ -49,7 +49,8 @@ public class CommentDBBean {
 			else
 				number=1;
 			
-			//답변 댓글일 경우 step, level 값 증가, 아닐 경우 set만 증가	
+			//답변 댓글일 경우 step, level 값 증가, 아닐 경우 set만 증가
+			//부모ID 추가하는 쪽으로 수정할 것
 			if(num!=0) {
 				pstmt = conn.prepareStatement("update comment_00 set com_re_step=com_re_step+1 where com_re_set=? and com_re_step>?");
 				pstmt.setInt(1, com_re_set);
