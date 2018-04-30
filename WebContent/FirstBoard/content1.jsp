@@ -24,6 +24,7 @@ function writeSave(){
 </head>
 
 <%
+	int mainArticle = 0;
 	int cset =1, clevel=0, cstep=0;
 	int num=Integer.parseInt(request.getParameter("num"));
 	String pageNum = request.getParameter("pageNum");
@@ -112,7 +113,7 @@ function writeSave(){
 		<td colspan=2><textarea name=commentt rows="6" cols="40"></textarea>
 		<input type=hidden name=content_num value=<%=article.getNum() %>>
 		<input type=hidden name=p_num value=<%=pageNum %>>
-		<input type=hidden name=comment_num value=<%=0 %>>
+		<input type=hidden name=comment_num value=<%=mainArticle %>>
 		<input type="hidden" name="com_re_set" value="<%=cset%>"/>
 		<input type="hidden" name="com_re_level" value="<%=clevel%>"/>
 		<input type="hidden" name="com_re_step" value="<%=cstep%>"/>

@@ -205,7 +205,7 @@ public class CommentDBBean {
 	}
 	
 	
-	public CommentDataBean getComment(int comment_num) throws Exception {
+	public CommentDataBean getComment(int content_num) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -214,10 +214,10 @@ public class CommentDBBean {
 		try {
 			conn = getConnection();
 		
-			
+			//게시글의 모든 댓글 값을 불러와서 데이터가 꼬이고 있음
 			pstmt = conn.prepareStatement(
-					"select * from comment_00 where content_num = ?");
-			pstmt.setInt(1, comment_num);
+					"select max(comment_num) from comment_00 where content_num = ?");
+			pstmt.setInt(1, content_num);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
