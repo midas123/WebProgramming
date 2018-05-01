@@ -13,7 +13,14 @@ public class CommentDataBean {
 	private int com_re_set;
 	private int com_re_level;
 	private int com_re_step;
+	private int mnum;
 	
+	public int getNum() {
+		return mnum;
+	}
+	public void setNum(int num) {
+		this.mnum = mnum;
+	}
 	public int getComment_num() {
 		return comment_num;
 	}

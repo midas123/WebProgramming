@@ -4,13 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import util.JdbcUtil;
-import comment.CommentDataBean;
-import logon.BoardDataBean;
 
 public class CommentDBBean {
 	private static CommentDBBean instance = new CommentDBBean();
@@ -32,26 +28,26 @@ public class CommentDBBean {
 		ResultSet rs = null;
 
 		int cnumber = cdb.getContent_num();
-		int num = cdb.getComment_num();
+		int mnum = cdb.getNum(); //새댓글 =0, 답변 댓글=댓글 번호
 		int com_re_set = cdb.getCom_re_set();
 		int com_re_level = cdb.getCom_re_level();
 		int com_re_step = cdb.getCom_re_step();
-		int number =0;
+		int number =0; //댓글 그룹번호
 		
 		try {
 			conn=getConnection();
 			//DB에서 댓글 존재여부 확인 후 새로운 넘버 생성
-			pstmt = conn.prepareStatement("select max(comment_num) from comment_00");
+			pstmt = conn.prepareStatement("select max(comment_num) from comment_00 ");
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) 
-				number=rs.getInt(1)+1;
+			number=rs.getInt(1)+1;
 			else
 				number=1;
-			
+		
 			//답변 댓글일 경우 step, level 값 증가, 아닐 경우 set만 증가
 			//부모ID 추가하는 쪽으로 수정할 것
-			if(num!=0) {
+			if(mnum!=0) {
 				pstmt = conn.prepareStatement("update comment_00 set com_re_step=com_re_step+1 where com_re_set=? and com_re_step>?");
 				pstmt.setInt(1, com_re_set);
 				pstmt.setInt(2, com_re_step);
@@ -217,8 +213,10 @@ public class CommentDBBean {
 		
 			//게시글의 모든 댓글 값을 불러와서 데이터가 꼬이고 있음
 			pstmt = conn.prepareStatement(
-					"select max(comment_num) from comment_00 where content_num = ?");
+					"select * from comment_00 where content_num = ? order by comment_num desc");
 			pstmt.setInt(1, content_num);
+			
+			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {

@@ -24,8 +24,8 @@ function writeSave(){
 </head>
 
 <%
-	int mainArticle = 0;
-	int cset =1, clevel=0, cstep=0;
+	//int mainArticle = 0;
+	int cset =1, clevel=0, cstep=0, mnum=0;
 	int num=Integer.parseInt(request.getParameter("num"));
 	String pageNum = request.getParameter("pageNum");
 	int pageSize=10;
@@ -53,7 +53,7 @@ function writeSave(){
 		CommentDBBean cdb = CommentDBBean.getInstance();
 		
 		//게시글의 모든 댓글을 객체에 저장		
-		CommentDataBean cdd = cdb.getComment(num);
+		//CommentDataBean cdd = cdb.getComment(num);
 		
 		//댓글 DB에서 댓글 데이터를 가져와서 arrayList에 저장
 		ArrayList comments = cdb.getComments(article.getNum(), startRow, endRow);
@@ -65,13 +65,13 @@ function writeSave(){
 		int re_step=article.getRe_step();
 		int re_level=article.getRe_level();
 		
-		try{
+		/* try{
 			if(num>0){
 			cset = cdd.getCom_re_set();
 			cstep = cdd.getCom_re_step();
 			clevel = cdd.getCom_re_level();
 			}
-		}catch(Exception e){}
+		}catch(Exception e){} */
 		
 		
 %>
@@ -113,10 +113,11 @@ function writeSave(){
 		<td colspan=2><textarea name=commentt rows="6" cols="40"></textarea>
 		<input type=hidden name=content_num value=<%=article.getNum() %>>
 		<input type=hidden name=p_num value=<%=pageNum %>>
-		<input type=hidden name=comment_num value=<%=mainArticle %>>
+		<%-- <input type=hidden name=comment_num value=<%=mainArticle %>> --%>
 		<input type="hidden" name="com_re_set" value="<%=cset%>"/>
 		<input type="hidden" name="com_re_level" value="<%=clevel%>"/>
 		<input type="hidden" name="com_re_step" value="<%=cstep%>"/>
+		<input type="hidden" name="mnum" value="<%=mnum%>"/>
 		
 		</td>
 		<td align=center>작성자<br>
@@ -161,7 +162,7 @@ if(dbc.getCom_re_level()>0){
 		</td>
 		<td align=right size=250 bgcolor=<%=value_c %>> 접속IP:<%=dbc.getIp() %>&nbsp;
 		<a href="delCommentForm.jsp?ctn=<%=dbc.getContent_num() %>&cmn=<%=dbc.getComment_num() %>&p_num=<%=pageNum %>">[삭제]</a>&nbsp;
-		<a href="commentReplyForm.jsp?ctn=<%=dbc.getContent_num() %>&cmn=<%=dbc.getComment_num() %>&cset=<%=cset%>&clevel=<%=clevel%>&cstep=<%=cstep%>">[답글쓰기]</a>&nbsp;
+		<a href="commentReplyForm.jsp?ctn=<%=dbc.getContent_num() %>&cmn=<%=dbc.getComment_num() %>&cset=<%=dbc.getCom_re_level()%>&clevel=<%=dbc.getCom_re_level()%>&cstep=<%=dbc.getCom_re_step()%>&mnum=<%=dbc.getNum()%>">[답글쓰기]</a>&nbsp;
  		</td>
 	</tr>
 	

@@ -45,7 +45,7 @@ public class BoardDBBean {
 				number=1; //DB�� �곗�댄�곌� ���ㅻ㈃ 泥ル��� 寃���湲��� ����.
 			
 			/*
-			 * 아래 if문은 메인글과 답변글 구분, list.jsp에서 writeForm.jsp로 넘어가면 num=0이됨 -> 새 글(메인글)
+			 * 아래 if문은 메인글과 답변글 구분, list.jsp에서 writeForm.jsp로 넘어가면 num=0 -> 새 글(메인글)
 			 * content.jsp에서 writeForm.jsp 넘어가면 num=게시글번호 -> 답변글
 			 */
 			

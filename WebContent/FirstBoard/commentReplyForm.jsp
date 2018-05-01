@@ -7,14 +7,12 @@
 <%@ page import="comment.CommentDBBean" %>    
     
 <%
-
-
 	int content_number = Integer.parseInt(request.getParameter("ctn"));
 	int comment_number = Integer.parseInt(request.getParameter("cmn"));
+	int mnum = Integer.parseInt(request.getParameter("mnum"));
 	int cset = Integer.parseInt(request.getParameter("cset"));
 	int clevel = Integer.parseInt(request.getParameter("clevel"));
 	int cstep = Integer.parseInt(request.getParameter("cstep"));
-
 %> 
     
 <html>
@@ -39,6 +37,7 @@
 		<input type="hidden" name="com_re_set" value="<%=cset%>">
 		<input type="hidden" name="com_re_step" value="<%=cstep%>">
 		<input type="hidden" name="com_re_level" value="<%=clevel%>"> 
+		<input type="hidden" name="num" value="<%=mnum%>"> 
 		<input type=submit value="답변 코멘트달기">
 		</td>
 	</tr>
