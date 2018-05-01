@@ -28,7 +28,7 @@ public class CommentDBBean {
 		ResultSet rs = null;
 
 		int cnumber = cdb.getContent_num();
-		int mnum = cdb.getNum(); //새댓글 =0, 답변 댓글=댓글 번호
+		int mnum = cdb.getComment_num(); //새댓글 =0, 답변 댓글=댓글 번호
 		int com_re_set = cdb.getCom_re_set();
 		int com_re_level = cdb.getCom_re_level();
 		int com_re_step = cdb.getCom_re_step();
@@ -36,7 +36,6 @@ public class CommentDBBean {
 		
 		try {
 			conn=getConnection();
-			//DB에서 댓글 존재여부 확인 후 새로운 넘버 생성
 			pstmt = conn.prepareStatement("select max(comment_num) from comment_00 ");
 			rs = pstmt.executeQuery();
 			

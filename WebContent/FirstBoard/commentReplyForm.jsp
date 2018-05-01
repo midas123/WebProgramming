@@ -13,6 +13,7 @@
 	int cset = Integer.parseInt(request.getParameter("cset"));
 	int clevel = Integer.parseInt(request.getParameter("clevel"));
 	int cstep = Integer.parseInt(request.getParameter("cstep"));
+	System.out.println("mnum:"+mnum);
 %> 
     
 <html>
@@ -37,7 +38,7 @@
 		<input type="hidden" name="com_re_set" value="<%=cset%>">
 		<input type="hidden" name="com_re_step" value="<%=cstep%>">
 		<input type="hidden" name="com_re_level" value="<%=clevel%>"> 
-		<input type="hidden" name="num" value="<%=mnum%>"> 
+		<input type="hidden" name="mnum" value="<%=comment_number%>"> 
 		<input type=submit value="답변 코멘트달기">
 		</td>
 	</tr>

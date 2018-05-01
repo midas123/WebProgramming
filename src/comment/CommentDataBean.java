@@ -15,10 +15,10 @@ public class CommentDataBean {
 	private int com_re_step;
 	private int mnum;
 	
-	public int getNum() {
+	public int getMNum() {
 		return mnum;
 	}
-	public void setNum(int num) {
+	public void setMNum(int num) {
 		this.mnum = mnum;
 	}
 	public int getComment_num() {

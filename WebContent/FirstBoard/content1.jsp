@@ -134,7 +134,7 @@ function writeSave(){
 if(count>0){ 
 %>
 <p>
-<table width=400 border=0 cellspacing=0 cellpadding=0 bgcolor=<%=bodyback_c %> align=center>
+<table width=500 border=0 cellspacing=0 cellpadding=0 bgcolor=<%=bodyback_c %> align=center>
 	<tr>
 		<td>코멘트 수: <%=comments.size() %>
 	</tr>
@@ -146,28 +146,29 @@ for(int i=0; i<comments.size(); i++){
 	CommentDataBean dbc= (CommentDataBean)comments.get(i);
 	
 %>
-
+		<td align=left width=200 bgcolor=<%=value_c %>>
 <%
 int wid=0;
 if(dbc.getCom_re_level()>0){
 	wid=5*(dbc.getCom_re_level());
 %> 
-<img src="./images/level.gif" width="<%=wid %>" >
-	
+		
+<img src="./images/level.gif" width="<%=wid %>" height="16">
+<img src="./images/re.gif">	
 <%} else {%>
-<img src="./images/level.gif" width="<%=wid %>" >
+<img src="./images/level.gif" width="<%=wid %>" height="16">
 <%} %>
-		<td align=left size=250 bgcolor=<%=value_c %>>
+		
 		&nbsp;<b><%=dbc.getCommenter() %>&nbsp;님</b>(<%=sdf.format(dbc.getReg_date()) %>)
 		</td>
-		<td align=right size=250 bgcolor=<%=value_c %>> 접속IP:<%=dbc.getIp() %>&nbsp;
+		<td align=right bgcolor=<%=value_c %>> 접속IP:<%=dbc.getIp() %>&nbsp;
 		<a href="delCommentForm.jsp?ctn=<%=dbc.getContent_num() %>&cmn=<%=dbc.getComment_num() %>&p_num=<%=pageNum %>">[삭제]</a>&nbsp;
-		<a href="commentReplyForm.jsp?ctn=<%=dbc.getContent_num() %>&cmn=<%=dbc.getComment_num() %>&cset=<%=dbc.getCom_re_level()%>&clevel=<%=dbc.getCom_re_level()%>&cstep=<%=dbc.getCom_re_step()%>&mnum=<%=dbc.getNum()%>">[답글쓰기]</a>&nbsp;
+		<a href="commentReplyForm.jsp?ctn=<%=dbc.getContent_num() %>&cmn=<%=dbc.getComment_num() %>&cset=<%=dbc.getCom_re_set()%>&clevel=<%=dbc.getCom_re_level()%>&cstep=<%=dbc.getCom_re_step()%>&mnum=<%=dbc.getContent_num()%>">[답글쓰기]</a>&nbsp;
  		</td>
 	</tr>
 	
 	<tr>
-		<td colspan=2><%=dbc.getCommentt() %></td>
+		<td colspan=2>&nbsp;&nbsp;&nbsp;<%=dbc.getCommentt() %></td>
 	</tr>
 <%} %>
 
