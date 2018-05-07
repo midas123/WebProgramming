@@ -77,7 +77,7 @@ if(check.equals("n")){
 		String tempArea4 = zipBean.getArea4();
 	%>
 	<tr>
-		<td><a href = "javascript:sendAddress('<%=tempZipcode%>','<%=tempArea2%>','<%=tempArea2%>', '<%=tempArea3%>','<%=tempArea4%>')"><%=tempZipcode%>&nbsp;<%=tempArea1%>&nbsp;<%=tempArea2%>&nbsp;<%=tempArea3%>&nbsp;<%=tempArea4%></a><br>
+		<td><a href = "javascript:sendAddress('<%=tempZipcode%>','<%=tempArea1%>','<%=tempArea2%>', '<%=tempArea3%>','<%=tempArea4%>')"><%=tempZipcode%>&nbsp;<%=tempArea1%>&nbsp;<%=tempArea2%>&nbsp;<%=tempArea3%>&nbsp;<%=tempArea4%></a><br>
 	<%	     
 	}
 	 }
