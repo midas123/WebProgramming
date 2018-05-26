@@ -26,7 +26,7 @@
 	</tr>	
 </table>
 
-<form name="checkForm" method="post" action="action="confirmId.jsp">
+<form name="checkForm" method="post" action="confirmId.jsp">
 <table width="200" border="0" cellspacing="0" cellpadding="5">
 	<tr>
 		<td bgcolor="<%=value_c %>" align="center">
